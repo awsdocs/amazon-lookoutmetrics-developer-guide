@@ -1,18 +1,10 @@
-## My Project
+## Amazon Lookout for Metrics Developer Guide
 
-TODO: Fill this README out!
+This repository contains the Markdown version of the Amazon Lookout for Metrics Developer Guide and additional resources that you can use to learn about Amazon Lookout for Metrics concepts and features.
 
-Be sure to:
-
-* Change the title in this README
-* Edit your repository description on GitHub
-
-## Security
-
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+Table of contents: [index.md](/docs-source/index.md)
 
 ## License Summary
 
-The documentation is made available under the Creative Commons Attribution-ShareAlike 4.0 International License. See the LICENSE file.
+The documentation is made available under the Creative Commons Attribution-ShareAlike 4.0 International License. See the [LICENSE](./LICENSE) file.
 
-The sample code within this documentation is made available under the MIT-0 license. See the LICENSE-SAMPLECODE file.
