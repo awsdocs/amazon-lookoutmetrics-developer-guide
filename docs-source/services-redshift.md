@@ -25,6 +25,6 @@ The detector reads new data from Amazon Redshift periodically, by querying recor
 When you activate the detector, it uses data from several intervals to learn, before attempting to find anomalies\. For a five minute interval, the training process takes approximately one day\. Training time varies [depending on the detector's interval](gettingstarted-quotas.md#gettingstarted-quotas-coldstart)\.
 
 **Note**  
-When you add an Amazon Redshift dataset to your detector, the Lookout for Metrics console creates a [service role](permissions-service.md) with permission to use the database secret and monitor Amazon Redshift resources\.
+When you add an Amazon Redshift dataset to your detector, the Lookout for Metrics console creates a [service role](permissions-service.md) with permission to use the database secret and monitor Amazon Redshift resources\. Lookout for Metrics also creates up to two [elastic network interfaces](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_ElasticNetworkInterfaces.html), which allow it to connect to your VPC to access your database\. When you delete the detector, Lookout for Metrics deletes the network interfaces\.
 
 For more information about Amazon Redshift, see [Getting started with Amazon Redshift](https://docs.aws.amazon.com/redshift/latest/gsg/getting-started.html) in the Amazon Redshift Getting Started\.

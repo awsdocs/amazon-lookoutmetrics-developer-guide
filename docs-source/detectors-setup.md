@@ -1,6 +1,8 @@
 # Setting up a detector<a name="detectors-setup"></a>
 
-When you create a detector, you configure just a name, description, and interval\. You can then add a dataset and notifications and activate the detector to start finding anomalies\.
+When you create a detector, you configure just a name, description, and interval\. You can then add a dataset and notifications and activate the detector to start learning and finding anomalies\.
+
+When you activate a detector, it starts analyzing data and learns to identify anomalies by identifying patterns between metrics\. The learning process can take up to two days\. During this time, the detector's status is **Initializing**\.
 
 **To create a detector**
 
@@ -53,4 +55,4 @@ The new detector does not yet have a dataset to analyze\. To start analyzing dat
 To communicate with other services, Lookout for Metrics needs permissions from an AWS Identity and Access Management \(IAM\) service role\. When you use the console to configure a dataset, you can create a service role or choose one you already have\. If you don't have permission to create roles, ask an administrator to create a service role for Lookout for Metrics\.  
 For more information, see [Service roles for Amazon Lookout for Metrics](permissions-service.md)\.
 
-The console registers the dataset and activates the detector\. The detector starts analyzing data and trains itself to identify anomalies by identifying patterns between metrics\. The training process can take up to two days\. During this time, the detector's status is **Initializing**\.
+The console registers the dataset and activates the detector to start learning and finding anomalies\.

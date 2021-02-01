@@ -1,6 +1,6 @@
 # Managing a dataset in Amazon S3<a name="detectors-dataset"></a>
 
-You can use Amazon Simple Storage Service \(Amazon S3\) to store data for an Amazon Lookout for Metrics detector\. With Amazon S3, you have complete control over your data's format and content\. You can preprocess your data before handing it off to Lookout for Metrics, and aggregate data from multiple sources\.
+You can use Amazon Simple Storage Service \(Amazon S3\) to store data for an Amazon Lookout for Metrics detector\. With Amazon S3, you have complete control over your data's format and content\. You can preprocess your data before handing it off to Lookout for Metrics, and aggregate data from multiple sources\. 
 
 **Note**  
 For information about using other AWS services as a datasource, see [Using Amazon Lookout for Metrics with other services](chapter-services.md)\.
@@ -16,7 +16,7 @@ s3://my-lookoutmetrics-dataset-123456789012/
 
 In this example, data for each 5\-minute interval is stored in a single file named `data.jsonl` at a path that represents the interval\. `continuous/20201225/1520/` is a path for data generated in the 5\-minute period ending at 3:20 PM on December 25th, 2020\. Every 5 minutes, a new path is used\.
 
-Historical data is a collection of data stored at a single path in Amazon S3 that represents many previous intervals\. You can provide historical data to a detector to train it prior to processing continuous data\. Historical data should collect metrics from hundreds or thousands of intervals in one or more files\. The following example shows historical data in separate files for each month at the path `historical/`\.
+Historical data is a collection of data stored at a single path in Amazon S3 that represents many previous intervals\. You can provide historical data to a detector to train it prior to processing continuous data\. Historical data should have metrics from hundreds or thousands of intervals in one or more files\. The following example shows historical data in separate files for each month at the path `historical/`\.
 
 ```
 s3://my-lookoutmetrics-dataset-123456789012/
@@ -24,6 +24,10 @@ s3://my-lookoutmetrics-dataset-123456789012/
     historical/data-202010.jsonl
     historical/data-202011.jsonl
 ```
+
+If you [provide historical data](#detectors-dataset-learning), but not continuous data, the detector operates in backtest mode\. Prior to creating an application or pipeline that generates continuous data, you can run a backtest to see how the detector works with your historical data\.
+
+You can store your data in CSV or JSON lines format\. Both formats support one record per line of text\. With [CSV format](#detectors-dataset-csv), each field in a line is plain text separated by a comma or other supported delimiter\. A CSV file can have a header row with field names, or define field names in the dataset\. With [JSON lines format](#detectors-dataset-csv), each line is a JSON object with key\-value pairs that define the name and value of each field\.
 
 **Topics**
 + [Structuring continuous and historical data](#detectors-dataset-livedata)
@@ -34,7 +38,7 @@ s3://my-lookoutmetrics-dataset-123456789012/
 
 ## Structuring continuous and historical data<a name="detectors-dataset-livedata"></a>
 
-When you choose Amazon S3 as a data source, you provide a *path template* that tells the detector where to find the continuous data\. Consider the following example path structure\.
+When you configure an Amazon S3 bucket as a datasource, you provide a *path template* that tells the detector where to find the continuous data\. Consider the following example path structure\.
 
 ```
 s3://my-lookoutmetrics-dataset-123456789012/
@@ -46,9 +50,7 @@ s3://my-lookoutmetrics-dataset-123456789012/
 
 For historical data for this example, the path is `s3://my-lookoutmetrics-dataset-123456789012/historical`\. Lookout for Metrics looks for data files directly under `historical` and ignores subpaths\.
 
-For continuous data, the detector needs to know where to look for data for the current interval\. The path template for the example structure is `s3://my-lookoutmetrics-dataset-123456789012/continuous/{{yyyyMMdd}}/{{HHmm}}`\. The letters in double brackets represent parts of the path that change depending on the date and time\.
-
-**Date and time keys**
+For continuous data, the detector needs to know where to look for data for the current interval\. The path template for the example structure is `s3://my-lookoutmetrics-dataset-123456789012/continuous/{{yyyyMMdd}}/{{HHmm}}`\. The letters in double brackets represent parts of the path that change depending on the date and time\. Construct a path template with the following keys\.
 + `yyyy` – The 4\-digit year
 + `MM` – The 2\- digit month
 + `HH` – The 2\-digit hour \(in 24\-hour format\)
@@ -56,7 +58,7 @@ For continuous data, the detector needs to know where to look for data for the c
 
 For a complete list of supported keys, see [Path template keys](#detectors-dataset-pathkeys)\.
 
-Within a path for a single interval, data can be stored in one tor more text files\. Amazon Lookout for Metrics uses only data with timestamps that fall within the interval for analysis\. The detector uses the dataset's timezone to determine if data belongs to the current interval and ignores data that falls outside of the expected range\.
+Within a path for a single interval, data can be stored in one tor more text files\. The detector uses only data with timestamps that fall within the interval for analysis\. The detector uses the dataset's timezone to determine if data belongs to the current interval and ignores data that falls outside of the expected range\.
 
 ## CSV data<a name="detectors-dataset-csv"></a>
 
@@ -108,7 +110,7 @@ The following is another example of a correctly formatted JSON lines file\. Here
 
 ## Providing historical data<a name="detectors-dataset-learning"></a>
 
-Lookout for Metrics stores the continuous data that your detector processes and uses it for learning\. *Learning* is the process of analyzing data over multiple intervals to identify patterns and to distinguish between legitimate anomalies and uncommon but expected variations\. A detector can also learn by using *historical data*\.
+Your detector imports continuous data from your Amazon S3 bucket, stores it in its dataset, and uses it for learning\. *Learning* is the process of analyzing data over multiple intervals to identify patterns and to distinguish between legitimate anomalies and uncommon but expected variations\. A detector can also learn by using *historical data*\.
 
 To train a detector before it starts processing continuous data, you can provide historical data that represents up to 2,500 previous intervals\. Historical data must fall within a timeframe that varies depending on the dataset's interval\.
 + 5\-minute interval – 3 months
@@ -116,11 +118,11 @@ To train a detector before it starts processing continuous data, you can provide
 + 1\-hour interval – 3 years
 + 1\-day interval – 5 years
 
-If you don't specify a path for historical data when you create the dataset, the detector looks for data from previous intervals in the continuous data path\.
+If you don't specify a path for historical data when you create the dataset, the detector looks for data from previous intervals in the continuous data path\. If available, it uses this data for learning to reduce the amount of time that it takes to start finding anomalies\.
 
 ## Path template keys<a name="detectors-dataset-pathkeys"></a>
 
-The following table lists the supported keys for path templates\.
+The following table lists the supported keys for continuous data path templates\. A path template is an Amazon S3 URI that has placeholder keys in double curly brackets, which represent the folder names in the bucket that change for each interval\.
 
 
 ****  
@@ -134,12 +136,12 @@ The following table lists the supported keys for path templates\.
 |  a  |  AM/PM marker  |  Text  |  PM  | 
 |  H  |  Hour in day \(0\-23\)  |  Number  |  0  | 
 |  k  |  Hour in day \(1\-24\)  |  Number  |  24  | 
-|  k  |  Hour in AM/PM \(0\-11\)  |  Number  |  11  | 
+|  k \(with AM/PM marker\)  |  Hour in AM/PM \(0\-11\)  |  Number  |  11  | 
 |  m  |  Minute in hour  |  Number  |  30  | 
 |  s  |  Second in minute  |  Number  |  55  | 
 
 **Example path structure – daily interval**  
-For this example, the path template is s3://my\-lookoutmetrics\-dataset\-123456789012/continuous/\{\{yyyy\}\}/\{\{MM\}\}/\{\{dd\}\}  
+For this example, the path template is `s3://my-lookoutmetrics-dataset-123456789012/continuous/{{yyyy}}/{{MM}}/{{dd}}`\. The `continuous` folder has a subfolder structure that indicates the year, month, and day of each one day interval\.  
 
 ```
 s3://my-lookoutmetrics-dataset-123456789012/

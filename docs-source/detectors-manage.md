@@ -6,6 +6,14 @@ When you create a detector, you configure just a name, description, and interval
 
 When activation is complete, the detector analyzes data after each interval\. If there are any anomalies in the data for an interval, the detector assigns each a severity score\. If the score exceeds an alert target's threshold, the detector sends an alert to that target\. You can view the results of each analysis in the detector log\.
 
+**To view the detector log**
+
+1. Open the [Lookout for Metrics console Detectors](https://console.aws.amazon.com//lookoutmetrics/home#detectors) page\.
+
+1. Choose a detector\.
+
+1. Scroll down to the bottom of the page\.
+
 To stop analyzing data and delete it from Lookout for Metrics, delete the detector\. This also deletes the detector's dataset and alerts\.
 
 **To delete a detector**

@@ -4,13 +4,13 @@ In Amazon Lookout for Metrics, a *detector* is a resource that monitors a datase
 
 A [dataset](detectors-dataset.md) is a collection of timestamped data points that can each have multiple metrics\. You choose one of the metrics to be the *measure*, which is the primary metric that the detector monitors for anomalies\. You can also configure up to five additional metrics as *dimensions*\. Dimensions are secondary metrics that the detector uses to segment anomalies and identify contributing factors\.
 
-Detectors primarily work against live data\. For an Amazon Simple Storage Service \(Amazon S3\) datasource, you populate a bucket with data in real time as it is generated\. For other datasources, the detector reads data directly from the other service\. 
+For example, you can choose a field named `availability` for a measure\. If you don't choose a dimension, the detector monitors availability across all records\. If you choose a field named `country` for a dimension, then the detector monitors availability in each country as a separate metric: *availability in Canada*, *availability in Italy*, and so on\.
 
-When you create a detector, you can also provide *historical data*\. Lookout for Metrics uses historical data to train the detector to identify anomalies more accurately\.
+Detectors primarily work against live data\. A detector analyzes new data periodically to find anomalies in measure values\. The *interval* at which it analyzes data can be between 5 minutes and 1 day\. To allow time for the datasource to collect all data before analysis starts, you also configure a *delay* on the dataset\. At the end of an interval, the detector waits for the duration of the delay before analyzing data\.
 
-When you create a detector, you choose how often it analyzes data\. The *interval* can be between 5 minutes and 1 day\. To allow time for the datasource to collect all data before analysis starts, you also configure a *delay* on the dataset\. At the end of an interval, the detector waits for the duration of the delay before analyzing data\.
+When you create a detector, you can also provide *historical data*\. If you provide historical data, the detector uses it to learn patterns and relationships between fields in your data\. If not, the detector spends several intervals learning on live data\.
 
-Every time it runs, the detector analyzes all of the data generated during the interval, identifies anomalous data points, and assigns a severity score to each\. If the severity of an anomaly exceeds a *threshold*, the detector sends an *alert*\. You can [configure alert targets](detectors-alerts.md) to send a notification to an Amazon Simple Notification Service \(Amazon SNS\) topic, or to invoke an AWS Lambda function for processing\. If you get too many or too few results, you can change the threshold that triggers the alert\.
+Every time it runs, the detector analyzes all of the data generated during the interval, identifies anomalous data points, and assigns a severity score to each\. If the severity of an anomaly exceeds a *threshold*, the detector sends an *alert*\. You can [configure alerts](detectors-alerts.md) to send a notification to an Amazon Simple Notification Service \(Amazon SNS\) topic, or to invoke an AWS Lambda function\. If you get too many or too few results, you can change the threshold that triggers the alert\.
 
 **Topics**
 + [Setting up a detector](detectors-setup.md)

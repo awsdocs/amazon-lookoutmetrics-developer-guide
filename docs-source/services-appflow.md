@@ -1,6 +1,6 @@
 # Using Amazon AppFlow with Lookout for Metrics<a name="services-appflow"></a>
 
-You can use Amazon AppFlow to create a datasource for an Amazon Lookout for Metrics detector\. With Amazon AppFlow, you can collect data from external cloud applications in a flow\. An Lookout for Metrics detector reads data from the flow and monitors it for anomalies\.
+You can use Amazon AppFlow to create a datasource for an Amazon Lookout for Metrics detector\. With Amazon AppFlow, you can collect data from external cloud applications in a flow\. A Lookout for Metrics detector reads data from the flow and monitors it for anomalies\.
 
 To use Amazon AppFlow with Lookout for Metrics, you must use an AWS Key Management Service \(AWS KMS\) encryption key that you create in your account\. You can create a symmetric customer\-managed key for your flow and detector [in the AWS KMS console](https://console.aws.amazon.com/kms/home#/kms/keys/create)\.
 

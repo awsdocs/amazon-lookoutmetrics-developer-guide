@@ -1,7 +1,7 @@
 # Amazon Lookout for Metrics Developer Guide
 
 -----
-*****Copyright &copy; 2020 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy; 2021 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -38,6 +38,9 @@ Amazon's trademarks and trade dress may not be used in
    + [Using Amazon Redshift with Lookout for Metrics](services-redshift.md)
    + [Using Amazon SNS with Lookout for Metrics](services-sns.md)
    + [Using Amazon S3 with Lookout for Metrics](services-s3.md)
++ [Monitoring Lookout for Metrics](lookoutmetrics-monitoring.md)
+   + [Viewing Amazon Lookout for Metrics API activity in CloudTrail](monitoring-cloudtrail.md)
+   + [Monitoring Lookout for Metrics with Amazon CloudWatch](monitoring-cloudwatch.md)
 + [Security in Amazon Lookout for Metrics](lookoutmetrics-security.md)
    + [Data protection in Amazon Lookout for Metrics](security-dataprotection.md)
    + [Identity and access management for Amazon Lookout for Metrics](security-iam.md)
@@ -47,3 +50,4 @@ Amazon's trademarks and trade dress may not be used in
    + [Compliance validation for Amazon Lookout for Metrics](security-compliance.md)
    + [Resilience in Amazon Lookout for Metrics](security-resilience.md)
    + [Infrastructure security in Amazon Lookout for Metrics](security-infrastructure.md)
++ [Releases](lookoutmetrics-releases.md)
