@@ -37,4 +37,48 @@ The preceding policy does not allow a user to create IAM roles\. For a user with
 
 In addition to Lookout for Metrics, a user needs permission to view resources in services that they use as a detector's datasource or as alert channels\. When you work with a detector in the Lookout for Metrics console, the console uses your permissions to simplify the configuration process\.
 
-For details on the services that Lookout for Metrics supports, see [Using Amazon Lookout for Metrics with other services](chapter-services.md)\.
+You can grant full access to each service or limit the scope of permissions by resource name\. The following example shows a policy that provides read\-only access to a subset of resources in Lookout for Metrics\. The `Resources` key for applicable actions limits access to resources whose names start with `intern-`\.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "readonly-0",
+            "Effect": "Allow",
+            "Action": [
+                "lookoutmetrics:List*",
+                "lookoutmetrics:Get*",
+                "lookoutmetrics:Describe*"
+            ],
+            "Resource": [
+                "arn:aws:lookoutmetrics:us-east-2:123456789012:MetricSet/intern-*/intern-*",
+                "arn:aws:lookoutmetrics:us-east-2:123456789012:Alert:intern-*",
+                "arn:aws:lookoutmetrics:us-east-2:123456789012:AnomalyDetector:intern-*"
+            ]
+        },
+        {
+            "Sid": "readonly-1",
+            "Effect": "Allow",
+            "Action": [
+                "lookoutmetrics:ListAnomalyDetectors",
+                "lookoutmetrics:GetSampleData"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "readonly-2",
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "iam:PassedToService": "lookoutmetrics.amazonaws.com"
+                }
+            }
+        }
+    ]
+}
+```
+
+The resources supported vary among API actions\. For more information, see [Actions, resources, and condition keys for Amazon Lookout for Metrics](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonlookoutformetrics.html) in the Service Authorization Reference\.

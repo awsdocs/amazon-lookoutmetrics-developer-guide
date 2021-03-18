@@ -25,3 +25,5 @@ For a complete list of API endpoints, see [AWS Regions and endpoints](https://do
 ## Encryption at rest<a name="security-privacy-atrest"></a>
 
 Lookout for Metrics always encrypts a detector's dataset at rest\. Additionally, you can [configure Lookout for Metrics to use an encryption key](detectors-manage.md) that you create and manage in AWS Key Management Service\. These are referred to as *customer managed* customer master keys \(CMKs\) or customer managed keys\. If you don't configure a customer managed key, Lookout for Metrics uses a key that the service manages\.
+
+Additionally, Lookout for Metrics encrypts your resources' configuration at rest with a key that it manages\. This includes the names of fields or columns in your datasource that you use as [measures and dimensions](gettingstarted-concepts.md#gettingstarted-concepts-metrics)\. You can't configure Lookout for Metrics to use a CMK for configuration data\.

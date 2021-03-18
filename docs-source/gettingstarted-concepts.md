@@ -38,10 +38,10 @@ To send a notifications or initiate a processing workflow when the detector find
 
 You can process the anomaly record in the programming language of your choice with a Lambda function\. With an Amazon SNS topic, you can send the anomaly record to multiple subscribers\. A subscriber can use any protocol that Amazon SNS supports, including email addresses, mobile devices, and webhooks\. With a webhook, you can send the anomaly record to third\-party services, such as Slack\.
 
-For more information, see [Creating alerts ](detectors-alerts.md)\.
+For more information, see [Working with alerts](detectors-alerts.md)\.
 
 ## Feedback<a name="gettingstarted-concepts-feedback"></a>
 
 When the detector finds an anomaly, it creates a report with details about all of the metrics that had unexpected values during the interval in the Lookout for Metrics console\. When you view this report , you can provide feedback on the relevance of each metric\. The detector uses your feedback to improve its accuracy\.
 
-For more information, see [Viewing anomalies ](detectors-anomalies.md)\.
+For more information, see [Working with anomalies](detectors-anomalies.md)\.

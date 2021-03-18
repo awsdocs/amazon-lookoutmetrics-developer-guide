@@ -3,7 +3,7 @@
 You can use Amazon Simple Storage Service \(Amazon S3\) to store data for an Amazon Lookout for Metrics detector\. With Amazon S3, you have complete control over your data's format and content\. You can preprocess your data before handing it off to Lookout for Metrics, and aggregate data from multiple sources\. 
 
 **Note**  
-For information about using other AWS services as a datasource, see [Using Amazon Lookout for Metrics with other services](chapter-services.md)\.
+For information about using other AWS services as a datasource, see [Using Amazon Lookout for Metrics with other services](lookoutmetrics-services.md)\.
 
 You can provide two types of data to a detector: *continuous data* and *historical data*\. A detector monitors continuous data to identify anomalies\. You write continuous data to Amazon S3 as it is generated, to a path that represents the current interval\. At the end of each interval, the detector reads data from the interval and analyzes it\. The following example shows one possible path structure for continuous data with a 5\-minute interval\.
 

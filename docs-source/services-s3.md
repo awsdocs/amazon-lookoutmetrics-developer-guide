@@ -41,7 +41,7 @@ The console creates a role for the dataset, and a separate role for each alert t
 
 ## Structuring data<a name="services-s3-structure"></a>
 
-To determine the corrent pattern for your data, you can enter the URI of any example data file in the bucket\. The console analyzes the path and shows one or more patterns that matches\. Choose the pattern that matches your folder structure\.
+To determine the correct pattern for your data, you can enter the URI of any example data file in the bucket\. The console analyzes the path and shows one or more patterns that matches\. Choose the pattern that matches your folder structure\.
 
 For details on organizing your data, see [Managing a dataset in Amazon S3](detectors-dataset.md)\.
 

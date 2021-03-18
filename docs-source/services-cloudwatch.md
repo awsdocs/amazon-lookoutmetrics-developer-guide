@@ -16,7 +16,7 @@ In CloudWatch, a metric can have a name and value, and optionally can also have 
 
 1. Follow the instructions to create the datasource\.
 
-To configure metrics in Lookout for Metrics, you choose a CloudWatch namespace and dimension first, and then choose one or more CloudWatch metrics to be measures for the dataset\. For CloudWatch metrics that apply to all resouces in an AWS Region, or otherwise don't have a dimension in CloudWatch, you set **Dimensions** to **None**\.
+To configure metrics in Lookout for Metrics, you choose a CloudWatch namespace and dimension first, and then choose one or more CloudWatch metrics to be measures for the dataset\. For CloudWatch metrics that apply to all resources in an AWS Region, or otherwise don't have a dimension in CloudWatch, you set **Dimensions** to **None**\.
 
 For example, in AWS Lambda you can monitor concurrency by function, by resource \(function version or alias\), or across all functions in a Region\. If you choose `ConcurrentExecutions` as a measure and `Function Name` as a dimension, then the detector monitors *concurrency for function\-a* and *concurrency for function\-b* as two Lookout for Metrics metrics\.
 

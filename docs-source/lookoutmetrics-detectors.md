@@ -16,5 +16,5 @@ Every time it runs, the detector analyzes all of the data generated during the i
 + [Setting up a detector](detectors-setup.md)
 + [Managing detectors](detectors-manage.md)
 + [Managing a dataset in Amazon S3](detectors-dataset.md)
-+ [Viewing anomalies](detectors-anomalies.md)
-+ [Creating alerts](detectors-alerts.md)
++ [Working with anomalies](detectors-anomalies.md)
++ [Working with alerts](detectors-alerts.md)

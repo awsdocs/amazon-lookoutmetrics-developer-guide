@@ -1,7 +1,7 @@
 # Amazon Lookout for Metrics Developer Guide
 
 -----
-*****Copyright &copy; 2021 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
+*****Copyright &copy;  Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
 
 -----
 Amazon's trademarks and trade dress may not be used in 
@@ -28,9 +28,9 @@ Amazon's trademarks and trade dress may not be used in
    + [Setting up a detector](detectors-setup.md)
    + [Managing detectors](detectors-manage.md)
    + [Managing a dataset in Amazon S3](detectors-dataset.md)
-   + [Viewing anomalies](detectors-anomalies.md)
-   + [Creating alerts](detectors-alerts.md)
-+ [Using Amazon Lookout for Metrics with other services](chapter-services.md)
+   + [Working with anomalies](detectors-anomalies.md)
+   + [Working with alerts](detectors-alerts.md)
++ [Using Amazon Lookout for Metrics with other services](lookoutmetrics-services.md)
    + [Using Amazon AppFlow with Lookout for Metrics](services-appflow.md)
    + [Using Amazon CloudWatch with Lookout for Metrics](services-cloudwatch.md)
    + [Using AWS Lambda with Lookout for Metrics](services-lambda.md)
@@ -41,6 +41,7 @@ Amazon's trademarks and trade dress may not be used in
 + [Monitoring Lookout for Metrics](lookoutmetrics-monitoring.md)
    + [Viewing Amazon Lookout for Metrics API activity in CloudTrail](monitoring-cloudtrail.md)
    + [Monitoring Lookout for Metrics with Amazon CloudWatch](monitoring-cloudwatch.md)
++ [Troubleshooting Lookout for Metrics](lookoutmetrics-troubleshooting.md)
 + [Security in Amazon Lookout for Metrics](lookoutmetrics-security.md)
    + [Data protection in Amazon Lookout for Metrics](security-dataprotection.md)
    + [Identity and access management for Amazon Lookout for Metrics](security-iam.md)

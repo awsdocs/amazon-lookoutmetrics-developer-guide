@@ -1,4 +1,4 @@
-# Using Amazon Lookout for Metrics with other services<a name="chapter-services"></a>
+# Using Amazon Lookout for Metrics with other services<a name="lookoutmetrics-services"></a>
 
 Amazon Lookout for Metrics works with other AWS services to provide additional options for datasources and notification targets\. In addition to reading metrics data from an Amazon Simple Storage Service \(Amazon S3\) bucket, you can create datasets from databases, observability services, and cloud applications\. When a detector finds anomalies, it can invoke a Lambda function or send anomaly alerts to an Amazon SNS topic\.
 

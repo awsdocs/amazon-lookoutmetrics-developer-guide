@@ -32,7 +32,7 @@ Quotas set by other services can impact operation\. For information on quotas fo
 | Maximum number of measures for a dataset | 5 measures | 
 | Quotas for historical data | 
 | --- |
-| Maximum intervals \(continous mode\) | 2500 | 
+| Maximum intervals \(continuous mode\) | 2500 | 
 | Maximum intervals \(backtest mode\) | 3000 | 
 | Maximum number of files you can upload per interval | 
 | --- |

@@ -2,6 +2,14 @@
 
 You can use Amazon Relational Database Service \(Amazon RDS\) as a datasource for an Amazon Lookout for Metrics detector\. With Amazon RDS, you can choose columns to monitor \(*measures*\) and columns that segment measure values \(dimensions\)\. The detector monitors the values in these columns to find anomalies in your data\.
 
+**Important**  
+Lookout for Metrics can only connect to databases in a subset of Availability Zones in some Regions\. The following Availability Zones are supported\.  
+**US East \(N\. Virginia\)** – `use1-az1`,`use1-az4`, `use1-az6`
+**US West \(Oregon\)** – `usw2-az1`, `usw2-az2`, `usw2-az3`
+**Asia Pacific \(Tokyo\)** – `apne1-az1`, `apne1-az2`, `apne1-az4`
+**Other Regions** – All Availability Zones\.
+Availability Zone names such as `us-west-2a` are aliases for zone IDs that vary by account\. To see which names map to which IDs in your account, visit the [EC2 dashboard](https://console.aws.amazon.com/ec2) in the AWS Management Console\.
+
 The following database engines are supported:
 
 ****
@@ -13,7 +21,17 @@ The following database engines are supported:
 
 To use an Amazon RDS database with Lookout for Metrics, the table must have a timestamp column that is indexed for queries\. This allows Lookout for Metrics to get records for an interval without scanning the entire table\. You also need an AWS Secrets Manager secret for the detector\. The secret must have the database password and have a name that starts with `AmazonLookoutMetrics-`\.
 
-Before you configure the dataset, you need to know the database ID, database name, table name, column names, and details about the database instance's VPC\.
+Before you configure the dataset, you need to know the following information\.
+
+****
++ **DB identifier** – The unique identifier of the DB instance or cluster\. For example, `mysql-dbi` or `ld1xmplvzghgn47`\.
++ **Database name** – The software\-level database name\. For example, `mydb`\.
++ **Table name** – The name of the table\. For example, `events`\.
++ **Column names** – The names of columns that contain timestamps, measures, and dimensions\.
++ **Subnets** – The virtual private cloud \(VPC\) subnets where the detector creates network interfaces to connect to the database\. For example, `subnet-0752xmpl92bf2e4b7`\.
++ **Security group** – A VPC security group that allows traffic to the database\. For example, `sg-0f92xmplfbad0bc95`\.
++ **Secret name** – The name of an AWS Secrets Manager secret that the detector uses to retrieve the database password\. For example, `AmazonLookoutMetrics-mysqldbi`\.
++ **Secret ID** – The ID of the secret, for generating a service role that can access it\. For example, `AmazonLookoutMetrics-mysqldbi-Nxmplo`\.
 
 **To create an Amazon RDS dataset**
 
