@@ -17,7 +17,7 @@ To send anomaly alerts, a detector uses a [service role](permissions-service.md)
 1. Configure the following options\.
 
 ****
-   + **Alert name** – The name of the alert\.
+   + **Alert name** – The name of the alert\. Alert names must be unique across all detectors in a Region\.
    + **Description** – A description of the alert\.
    + **Severity threshold** – The severity score that the anomaly must reach for the detector to send an anomaly alert\.
    + **Channel** – The destination service\.

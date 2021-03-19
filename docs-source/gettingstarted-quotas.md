@@ -34,6 +34,7 @@ Quotas set by other services can impact operation\. For information on quotas fo
 | --- |
 | Maximum intervals \(continuous mode\) | 2500 | 
 | Maximum intervals \(backtest mode\) | 3000 | 
+| Maximum number of files | 3000 | 
 | Maximum number of files you can upload per interval | 
 | --- |
 | 5\-minute interval | 5 files | 

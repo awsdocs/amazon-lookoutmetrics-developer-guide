@@ -14,7 +14,7 @@ s3://my-lookoutmetrics-dataset-123456789012/
     continuous/20201225/1530/data.jsonl
 ```
 
-In this example, data for each 5\-minute interval is stored in a single file named `data.jsonl` at a path that represents the interval\. `continuous/20201225/1520/` is a path for data generated in the 5\-minute period ending at 3:20 PM on December 25th, 2020\. Every 5 minutes, a new path is used\.
+In this example, data for each 5\-minute interval is stored in a single file named `data.jsonl` at a path that represents the interval\. `continuous/20201225/1520/` is a path for data generated in the 5\-minute period starting at 3:20 PM on December 25th, 2020\. Every 5 minutes, a new path is used\.
 
 Historical data is a collection of data stored at a single path in Amazon S3 that represents many previous intervals\. You can provide historical data to a detector to train it prior to processing continuous data\. Historical data should have metrics from hundreds or thousands of intervals in one or more files\. The following example shows historical data in separate files for each month at the path `historical/`\.
 
