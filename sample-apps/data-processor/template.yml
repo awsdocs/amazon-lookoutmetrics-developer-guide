@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Lambda application that generates timeseries data.
+Parameters:
+  bucketName:
+    Description: Bucket name
+    Type: String
+  serviceName:
+    Description: Service name
+    Type: String
+    Default: kms
+Resources:
+  function:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.8
+      CodeUri: function/.
+      Description: Generate timeseries
+      Timeout: 900
+      MemorySize: 256
+      Environment:
+          Variables:
+            bucket: !Ref bucketName
+      # Function's execution role
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AWSLambdaReadOnlyAccess
+        - AWSCloudTrailReadOnlyAccess
+        - AWSXrayWriteOnlyAccess
+        - S3CrudPolicy:
+            BucketName: !Ref bucketName
+      Events:
+        hourly:
+          Type: Schedule
+          Properties:
+            Schedule: cron(0 * * * ? *)
+            Input: !Sub '{"service": "${serviceName}"}'
+      Tracing: Active
+      Layers:
+        - !Ref libs
+  libs:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: lookoutmetrics-data-processor-lib
+      Description: Dependencies for the lookoutmetrics sample app.
+      ContentUri: package/.
+      CompatibleRuntimes:
+        - python3.8
