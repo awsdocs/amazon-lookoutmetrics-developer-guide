@@ -1,0 +1,97 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "rds:DescribeDBInstances"
+            ],
+            "Resource": [
+                "arn:aws:rds:${Region}:${Account}:db:${DatabaseId}"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "rds:DescribeDBSubnetGroups"
+            ],
+            "Resource": "arn:aws:rds:${Region}:${Account}:subgrp:*",
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "secretsmanager:GetSecretValue"
+            ],
+            "Resource": [
+                "arn:aws:secretsmanager:${Region}:${Account}:secret:${SecretId}"
+            ],
+            "Effect": "Allow",
+            "Condition": {
+                "ForAllValues:StringEquals": {
+                    "secretsmanager:VersionStage": "AWSCURRENT"
+                }
+            }
+        },
+        {
+            "Action": [
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeSubnets"
+            ],
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "ec2:CreateNetworkInterface"
+            ],
+            "Resource": [
+                "arn:aws:ec2:${Region}:${Account}:network-interface/*",
+                "arn:aws:ec2:${Region}:${Account}:security-group/*",
+                "arn:aws:ec2:${Region}:${Account}:subnet/${SubnetId}"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "ec2:CreateNetworkInterfacePermission",
+                "ec2:DeleteNetworkInterface"
+            ],
+            "Resource": "arn:aws:ec2:${Region}:${Account}:network-interface/*",
+            "Effect": "Allow",
+            "Condition": {
+                "StringEquals": {
+                    "aws:ResourceTag/AmazonLookoutMetricsManaged": "True"
+                }
+            }
+        },
+        {
+            "Action": [
+                "ec2:CreateTags"
+            ],
+            "Resource": "arn:aws:ec2:${Region}:${Account}:network-interface/*",
+            "Effect": "Allow",
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestTag/AmazonLookoutMetricsManaged": "True",
+                    "ec2:CreateAction": "CreateNetworkInterface"
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "kms:Decrypt"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Condition": {
+                "ForAllValues:StringEquals": {
+                    "kms:ViaService": "secret.${Region}.amazonaws.com",
+                    "kms:CallerAccount": [
+                        "${Account}"
+                    ]
+                }
+            }
+        }
+    ]
+}

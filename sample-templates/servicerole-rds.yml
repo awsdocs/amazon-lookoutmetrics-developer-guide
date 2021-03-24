@@ -1,0 +1,118 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Service role for Lookout for Metrics detector with an Amazon RDS datasource.
+Parameters:
+  secretId:
+    Description: Secret ID
+    Type: String
+    Default: AmazonLookout*
+  queueName:
+    Description: Queue name
+    Type: String
+    Default: lookoutmetrics-*
+  functionName:
+    Description: Function name
+    Type: String
+    Default: lookoutmetrics-*
+  databaseId:
+    Description: Database ID
+    Type: String
+    Default: '*'
+  subnetId:
+    Description: Subnet ID
+    Type: String
+    Default: subnet-*
+Resources:
+  serviceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Policies:
+        - PolicyName: rds-access
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+            - Action:
+              - rds:DescribeDBInstances
+              Resource:
+              - !Sub arn:${AWS::Partition}:rds:${AWS::Region}:${AWS::AccountId}:db:${databaseId}
+              Effect: Allow
+            - Action:
+              - rds:DescribeDBSubnetGroups
+              Resource: !Sub arn:${AWS::Partition}:rds:${AWS::Region}:${AWS::AccountId}:subgrp:*
+              Effect: Allow
+            - Action:
+              - secretsmanager:GetSecretValue
+              Resource:
+              - !Sub arn:${AWS::Partition}:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:${secretId}
+              Effect: Allow
+              Condition:
+                ForAllValues:StringEquals:
+                  secretsmanager:VersionStage: AWSCURRENT
+            - Action:
+              - ec2:DescribeSecurityGroups
+              - ec2:DescribeSubnets
+              Resource: '*'
+              Effect: Allow
+            - Action:
+              - ec2:CreateNetworkInterface
+              Resource:
+              - !Sub arn:${AWS::Partition}:ec2:${AWS::Region}:${AWS::AccountId}:network-interface/*
+              - !Sub arn:${AWS::Partition}:ec2:${AWS::Region}:${AWS::AccountId}:security-group/*
+              - !Sub arn:${AWS::Partition}:ec2:${AWS::Region}:${AWS::AccountId}:subnet/${subnetId}
+              Effect: Allow
+            - Action:
+              - ec2:CreateNetworkInterfacePermission
+              - ec2:DeleteNetworkInterface
+              Resource: !Sub arn:${AWS::Partition}:ec2:${AWS::Region}:${AWS::AccountId}:network-interface/*
+              Effect: Allow
+              Condition:
+                StringEquals:
+                  aws:ResourceTag/AmazonLookoutMetricsManaged: 'True'
+            - Action:
+              - ec2:CreateTags
+              Resource: !Sub arn:${AWS::Partition}:ec2:${AWS::Region}:${AWS::AccountId}:network-interface/*
+              Effect: Allow
+              Condition:
+                StringEquals:
+                  aws:RequestTag/AmazonLookoutMetricsManaged: 'True'
+                  ec2:CreateAction: CreateNetworkInterface
+            - Effect: Allow
+              Action:
+              - kms:Decrypt
+              Resource:
+              - '*'
+              Condition:
+                ForAllValues:StringEquals:
+                  kms:ViaService: secret.${AWS::Region}.amazonaws.com
+                  kms:CallerAccount:
+                  - '${AWS::AccountId}'
+        - PolicyName: invoke-function
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+            - Effect: Allow
+              Action: lambda:InvokeFunction
+              Resource: !Sub arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:${functionName}
+        - PolicyName: send-notification
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+            - Effect: Allow
+              Action: sns:Publish
+              Resource: !Sub arn:${AWS::Partition}:sns:${AWS::Region}:${AWS::AccountId}:${queueName}
+      AssumeRolePolicyDocument: |
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Action": [
+                "sts:AssumeRole"
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lookoutmetrics.amazonaws.com"
+                ]
+              }
+            }
+          ]
+        }

@@ -1,0 +1,65 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Service role for Lookout for Metrics detector with an Amazon S3 datasource.
+Parameters:
+  bucketName:
+    Description: Bucket name
+    Type: String
+    Default: lookoutmetrics-*
+  queueName:
+    Description: Queue name
+    Type: String
+    Default: lookoutmetrics-*
+  functionName:
+    Description: Function name
+    Type: String
+    Default: lookoutmetrics-*
+Resources:
+  serviceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Policies:
+        - PolicyName: read-s3
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: 
+                  - s3:ListBucket
+                  - s3:GetBucketAcl
+                Resource: !Sub arn:${AWS::Partition}:s3:::${bucketName}
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetBucketAcl
+                Resource: !Sub arn:aws:s3:::${bucketName}/*
+        - PolicyName: invoke-function
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+            - Effect: Allow
+              Action: lambda:InvokeFunction
+              Resource: !Sub arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:${functionName}
+        - PolicyName: send-notification
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+            - Effect: Allow
+              Action: sns:Publish
+              Resource: !Sub arn:${AWS::Partition}:sns:${AWS::Region}:${AWS::AccountId}:${queueName}
+      AssumeRolePolicyDocument: |
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Action": [
+                "sts:AssumeRole"
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lookoutmetrics.amazonaws.com"
+                ]
+              }
+            }
+          ]
+        }

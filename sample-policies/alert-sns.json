@@ -1,0 +1,32 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "sns:Publish"
+            ],
+            "Resource": [
+                "arn:aws:sns:${Region}:${Account}:${TopicName}"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "kms:Decrypt",
+                "kms:GenerateDataKey"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Condition": {
+                "ForAllValues:StringLike": {
+                    "kms:ViaService": "sns.*.amazonaws.com",
+                    "kms:EncryptionContext:aws:sns:arn": [
+                        "arn:aws:sns:${Region}:${Account}:${TopicName}"
+                    ]
+                }
+            }
+        }
+    ]
+}
