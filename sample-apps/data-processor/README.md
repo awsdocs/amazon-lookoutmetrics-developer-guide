@@ -67,30 +67,30 @@ To invoke the function, run `4-invoke.sh`.
         "StatusCode": 200,
         "ExecutedVersion": "$LATEST"
     }
-    "s3://lookoutmetrics-dataset-a33dxmplff890241/timeseries/20210317/2300/kms-timeseries-20210317-2300.csv"
+    "s3://lookoutmetrics-dataset-a33dxmplff890241/timeseries/20210317/2300/kms-timeseries-2021-03-17 23:03:48.csv"
 
 The test event generates a one-hour interval's worth of data for the most recent full hour and stores it in the application's bucket.
 
 To get the file out of S3, use the `aws s3 cp` command with the URI that the function returns.
 
-    data-processor$ aws s3 cp s3://lookoutmetrics-dataset-a33dxmplff890241/timeseries/20210317/2300/kms-timeseries-20210317-2300.csv .
-
-    $ head kms-timeseries-20210317-2300.csv
+    data-processor$ aws s3 cp s3://lookoutmetrics-dataset-a33dxmplff890241/timeseries/20210317/2300/kms-timeseries-2021-03-17 23:03:48.csv .
+    data-processor$ head kms-timeseries-2021-03-17 23:03:48.csv
     EventTime,EventId,EventSource,EventName,ReadOnly,AccessKeyId,Username,Calls,Date
-    2021-03-17 22:00:08+00:00,ededd82d-xmpl-424d-8564-47df3ee1f0bd,kms.amazonaws.com,Decrypt,true,ASIAXMPL7W66TXMPLVJK,lookoutmetrics-sample-function-16GYXMPLO52OR,1,2021-03-17 22:00:08
+    2021-03-17 22:00:08+00:00,ededd82d-xmpl-424d-8564-47df3ee1f0bd,kms.amazonaws.com,Decrypt,true,ASIAXMPL7W6TXMPLVJK,lookoutmetrics-sample-function-16GYXMPLO52OR,1,2021-03-17 22:00:08
     2021-03-17 22:00:08+00:00,03b5fc97-xmpl-414a-93eb-0fd1190e18c4,kms.amazonaws.com,Decrypt,true,none,none,1,2021-03-17 22:00:08
     2021-03-17 22:00:08+00:00,32b10683-xmpl-4398-89ef-d65cfecd6f68,kms.amazonaws.com,Decrypt,true,none,none,1,2021-03-17 22:00:08
 
 To run the same code locally with the `unittest` library, run `0-run-tests.sh`
 
+    (data-processor) data-processor$ ./0-run-tests.sh
     ## ENVIRONMENT VARIABLES
     {"EDITOR": "vim", "HOME": "/home/...\n"}
     ## EVENT
     {"service": "kms"}
     ## CONTEXT
     {"requestid": "1234"}
-    uploading file: timeseries/20210317/2300/kms-timeseries-20210317-2300.csv
-    s3://lookoutmetrics-dataset-a33d3c7cff890241/timeseries/20210317/2300/kms-timeseries-20210317-2300.csv
+    uploading file: timeseries/20210317/2300/kms-timeseries-2021-03-17 23:03:48.csv
+    s3://lookoutmetrics-dataset-a33d3c7cff890241/timeseries/20210317/2300/kms-timeseries-2021-03-17 23:03:48.csv
     .
     ----------------------------------------------------------------------
     Ran 1 test in 5.594s
@@ -102,7 +102,14 @@ To run the same code locally with the `unittest` library, run `0-run-tests.sh`
 To generate 2 weeks of historical data, run `5-backfill.sh`.
 
     data-processor$ ./5-backfill.sh
+    ...
+    uploading file: timeseries/20210322/2200/kms-timeseries-2021-03-22 22:15:04.csv
+    s3://lookoutmetrics-dataset-a33d3c7cff890241/timeseries/20210322/2200/kms-timeseries-2021-03-22 22:15:04.csv
+    upload: /tmp/backfill/kms-timeseries-2021-03-22 22:58:04.csv to s3://lookoutmetrics-dataset-a33dxmplff890241/backtest/kms-timeseries-2021-03-22 22:15:04.csv
 
+The backfill script runs for about 20 minutes to gather data from each one hour interval in the last two weeks. It stores the data in interval-specific paths under `timeseries` to speed up learning in continuous mode, and under a single directory named `backtest` for backtest mode.
+
+# Tracing
 
 The application uses AWS X-Ray to trace requests. Open the [X-Ray console](https://console.aws.amazon.com/xray/home#/service-map) to view the service map. The following service map shows the function calling Amazon S3.
 
