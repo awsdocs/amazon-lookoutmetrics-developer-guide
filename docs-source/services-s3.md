@@ -31,6 +31,7 @@ For more information about Amazon S3, see [Getting started with Amazon Simple St
 **Topics**
 + [Configuring permissions](#services-s3-permissions)
 + [Structuring data](#services-s3-structure)
++ [Timestamps](#services-s3-timestamp)
 + [Running a backtest](#services-s3-backtest)
 
 ## Configuring permissions<a name="services-s3-permissions"></a>
@@ -44,6 +45,27 @@ The console creates a role for the dataset, and a separate role for each alert t
 To determine the correct pattern for your data, you can enter the URI of any example data file in the bucket\. The console analyzes the path and shows one or more patterns that matches\. Choose the pattern that matches your folder structure\.
 
 For details on organizing your data, see [Managing a dataset in Amazon S3](detectors-dataset.md)\.
+
+## Timestamps<a name="services-s3-timestamp"></a>
+
+Entries in your data must have a field with a date or timestamp that indicates which interval they occur in\. When you configure your dataset, you specify the format of the timestamp as a pattern with the following keys\.
+
+****
++ `yyyy` – Year
++ `MM` – Month
++ `DD` – Day
++ `HH` – Hour \(24\-hour time\)
++ `hh` – Hour \(12\-hour time\)
++ `a` – AM/PM indicator \(with 12\-hour `hh` key\)
++ `mm` – Minutes
++ `ss` – Seconds
+
+For daily intervals, you can use a date that indicates only the day\. For more granular intervals, the timestamp must be specific enough to distinguish between intervals\.
+
+****
++ `yyyy-MM-DD` – `2021-02-28` \(daily only\)
++ `yyyy-MM-DD HH:mm:ss` – `2021-02-28 17:45:32` \(any interval\)
++ `yyyy-MM-dd hh:mm:ss a` – `2021-02-28 05:45:32 pm` \(any interval\)
 
 ## Running a backtest<a name="services-s3-backtest"></a>
 

@@ -62,3 +62,111 @@ When you activate the detector, it uses data from several intervals to learn, be
 When you add an Amazon RDS dataset to your detector, the Lookout for Metrics console creates a [service role](permissions-service.md) with permission to use the database secret and monitor Amazon RDS resources\. Lookout for Metrics also creates up to two [elastic network interfaces](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_ElasticNetworkInterfaces.html), which allow it to connect to your VPC to access your database\. When you delete the detector, Lookout for Metrics deletes the network interfaces\.
 
 For more information about Amazon RDS, see [Getting started with Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.html) in the Amazon RDS User Guide\.
+
+**Topics**
++ [Sample policies](#services-rds-samplepolicies)
++ [Sample AWS CloudFormation templates](#services-rds-sampletemplates)
+
+## Sample policies<a name="services-rds-samplepolicies"></a>
+
+The GitHub repository for this guide provides [sample IAM policies](https://github.com/awsdocs/amazon-lookoutmetrics-developer-guide/blob/main/sample-policies) that you can use as reference for developing service roles\. You can use a single role that grants permission for both importing data and sending alerts by combining the applicable policies\.
+
+**Example [datasource\-rds\.json](https://github.com/awsdocs/amazon-lookoutmetrics-developer-guide/blob/main/sample-policies/datasource-rds.json) – Monitor and access an Amazon RDS DB instance**  
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "rds:DescribeDBInstances"
+            ],
+            "Resource": [
+                "arn:aws:rds:${Region}:${Account}:db:${DatabaseId}"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "rds:DescribeDBSubnetGroups"
+            ],
+            "Resource": "arn:aws:rds:${Region}:${Account}:subgrp:*",
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "secretsmanager:GetSecretValue"
+            ],
+            "Resource": [
+                "arn:aws:secretsmanager:${Region}:${Account}:secret:${SecretId}"
+            ],
+            "Effect": "Allow",
+            "Condition": {
+                "ForAllValues:StringEquals": {
+                    "secretsmanager:VersionStage": "AWSCURRENT"
+                }
+            }
+        },
+        ...
+```
+
+The second sample policy shows how to grant the detector permission to connect to a database across accounts\. The account with the database instance \(Account B\) must be in the same organization and share its subnet with the account that contains the detector \(`AccountA`\)\.
+
+**Example [datasource\-rds\-xaccount\.json](https://github.com/awsdocs/amazon-lookoutmetrics-developer-guide/blob/main/sample-policies/datasource-rds-xaccount.json) – Cross\-account access**  
+
+```
+        ...
+        {
+            "Action": [
+                "ec2:CreateNetworkInterface"
+            ],
+            "Resource": [
+                "arn:aws:ec2:${Region}:${AccountA}:network-interface/*",
+                "arn:aws:ec2:${Region}:${AccountA}:security-group/*",
+                "arn:aws:ec2:${Region}:${AccountB}:subnet/${SubnetId}"
+            ],
+            "Effect": "Allow"
+        },
+        ...
+```
+
+For more information, see [Working with shared VPCs](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-sharing.html) in the *Amazon VPC User Guide*\.
+
+## Sample AWS CloudFormation templates<a name="services-rds-sampletemplates"></a>
+
+The GitHub repository for this guide provides sample AWS CloudFormation templates that you can use to automate the creation of service roles\. The templates use parameters and naming patterns to apply least\-privilege permissions where possible\.
+
+The sample template creates a service role that gives Lookout for Metrics permission to use secrets prefixed with `AmazonLookout` to get database credentials, monitor Amazon RDS DB instances, and create network interfaces\.
+
+**Example [servicerole\-rds\.yml](https://github.com/awsdocs/amazon-lookoutmetrics-developer-guide/blob/main/sample-templates/servicerole-rds.yml) – Amazon S3 and Lambda permissions**  
+
+```
+Resources:
+  serviceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Policies:
+        - PolicyName: rds-access
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+            - Action:
+              - rds:DescribeDBInstances
+              Resource:
+              - !Sub arn:${AWS::Partition}:rds:${AWS::Region}:${AWS::AccountId}:db:${databaseId}
+              Effect: Allow
+            - Action:
+              - rds:DescribeDBSubnetGroups
+              Resource: !Sub arn:${AWS::Partition}:rds:${AWS::Region}:${AWS::AccountId}:subgrp:*
+              Effect: Allow
+            - Action:
+              - secretsmanager:GetSecretValue
+              Resource:
+              - !Sub arn:${AWS::Partition}:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:${secretId}
+              Effect: Allow
+              Condition:
+                ForAllValues:StringEquals:
+                  secretsmanager:VersionStage: AWSCURRENT
+```
+
+For more information, see [Sample templates](https://github.com/awsdocs/amazon-lookoutmetrics-developer-guide/blob/main/sample-templates) in the GitHub repo\.

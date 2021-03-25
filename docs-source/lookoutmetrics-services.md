@@ -52,3 +52,4 @@ To interact with other AWS services, Lookout for Metrics uses permissions from a
 + [Using Amazon Redshift with Lookout for Metrics](services-redshift.md)
 + [Using Amazon SNS with Lookout for Metrics](services-sns.md)
 + [Using Amazon S3 with Lookout for Metrics](services-s3.md)
++ [Working with Amazon Virtual Private Cloud](services-vpc.md)

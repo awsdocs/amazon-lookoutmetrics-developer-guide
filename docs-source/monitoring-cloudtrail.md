@@ -21,7 +21,7 @@ To learn more about CloudTrail, see the [AWS CloudTrail User Guide](https://docs
 
 AWS CloudTrail is activated on your AWS account when you create it\. When activity occurs in Lookout for Metrics, it is automatically recorded in a CloudTrail event\. You can view, search, and download recent events in the **Event history** in the CloudTrail console\. For more information, see [Viewing events with CloudTrail Event history](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/view-cloudtrail-events.html)\.
 
-For an ongoing record of events in your AWS account, including events for Lookout for Metrics, create a trail\. A *trail* enables CloudTrail to send log files to an Amazon S3 bucket\. When you create a trail in the console, the trail applies to all AWS Regions\. The trail logs events from all Regions in the AWS partition\. It sends the log files to the Amazon S3 bucket that you specify\. For more information, see [Overview for creating a trail](&url-ct-user;cloudtrail-create-and-update-a-trail.html)\.
+For an ongoing record of events in your AWS account, including events for Lookout for Metrics, create a trail\. A *trail* enables CloudTrail to send log files to an Amazon S3 bucket\. When you create a trail in the console, the trail applies to all AWS Regions\. The trail logs events from all Regions in the AWS partition\. It sends the log files to the Amazon S3 bucket that you specify\. For more information, see [Overview for creating a trail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-and-update-a-trail.html)\.
 
 
 

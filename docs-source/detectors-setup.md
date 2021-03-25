@@ -56,7 +56,7 @@ The new detector does not yet have a dataset to analyze\. To start analyzing dat
 
 1. Choose **Save and activate**\.
 
-When you activate a detector, it starts analyzing data and learns to identify anomalies by identifying patterns in metrics\. Learning time [varies depending on the the detector's interval](gettingstarted-quotas.md#gettingstarted-quotas-coldstart) and whether you provide historical data\. With a 5 minute interval and no historical data, learning time is up to 25 hours\. During this time, the detector's status is **Initializing**\.
+When you activate a detector, it starts analyzing data and learns to identify anomalies by identifying patterns in metrics\. Learning time [varies depending on the detector's interval](gettingstarted-quotas.md#gettingstarted-quotas-coldstart) and whether you provide historical data\. With a 5 minute interval and no historical data, learning time is up to 25 hours\. During this time, the detector's status is **Initializing**\.
 
 **Note**  
 To communicate with other services, Lookout for Metrics needs permissions from an AWS Identity and Access Management \(IAM\) service role\. When you use the console to configure a dataset, you can create a service role or choose one you already have\. If you don't have permission to create roles, ask an administrator to create a service role for Lookout for Metrics\.  

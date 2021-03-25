@@ -2,9 +2,6 @@
 
 Pricing for Amazon Lookout for Metrics is based on the number of metrics that your detector monitors for anomalies\. This number varies based on the number of measures and dimensions that you choose when you configure a dataset\. It can also vary from interval to interval, based on the number of different values that appear for each dimension\.
 
-**Preview**  
-Lookout for Metrics does not charge for monitoring during the preview\. However, you might be charged by other services for copying data into Lookout for Metrics\.
-
 For example, if you choose a field named `availability` as a measure and choose no dimensions, Lookout for Metrics monitors values of `availability` for each interval \(1 metric\)\. If you choose `availability` as a measure and `state` as a dimension, where `state` has 50 possible values, Lookout for Metrics monitors values of `availability` for each value of `state` \(50 metrics\)\.
 
 For another example, if you choose a field named `orders` with a dimension of `state`, the number of metrics can vary from interval to interval\. You might have orders from 40 states in 1 interval, and 45 in another\. For these intervals, the number of metrics would be 40 and 45, respectively\.

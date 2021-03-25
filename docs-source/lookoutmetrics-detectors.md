@@ -18,3 +18,4 @@ Every time it runs, the detector analyzes all of the data generated during the i
 + [Managing a dataset in Amazon S3](detectors-dataset.md)
 + [Working with anomalies](detectors-anomalies.md)
 + [Working with alerts](detectors-alerts.md)
++ [Tagging Lookout for Metrics resources](detectors-tags.md)

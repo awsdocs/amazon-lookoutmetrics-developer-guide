@@ -81,4 +81,6 @@ You can grant full access to each service or limit the scope of permissions by r
 }
 ```
 
-The resources supported vary among API actions\. For more information, see [Actions, resources, and condition keys for Amazon Lookout for Metrics](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonlookoutformetrics.html) in the Service Authorization Reference\.
+If you [tag your resources](detectors-tags.md), you can also use condition keys to limit access to a resource based on the presence or value of a tag\. For permissions purposes, detectors, datasets and alerts are independent resources\. If you grant or deny permission to a detector, the permission does not automatically apply to the detector's dataset or alerts\.
+
+The resources and conditions supported for use in policies vary among API actions\. For more information, see [Actions, resources, and condition keys for Amazon Lookout for Metrics](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonlookoutformetrics.html) in the Service Authorization Reference\.

@@ -46,3 +46,63 @@ When you activate the detector, it uses data from several intervals to learn, be
 When you add an Amazon Redshift dataset to your detector, the Lookout for Metrics console creates a [service role](permissions-service.md) with permission to use the database secret and monitor Amazon Redshift resources\. Lookout for Metrics also creates up to two [elastic network interfaces](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_ElasticNetworkInterfaces.html), which allow it to connect to your VPC to access your database\. When you delete the detector, Lookout for Metrics deletes the network interfaces\.
 
 For more information about Amazon Redshift, see [Getting started with Amazon Redshift](https://docs.aws.amazon.com/redshift/latest/gsg/getting-started.html) in the Amazon Redshift Getting Started\.
+
+**Topics**
++ [Sample policies](#services-redshift-samplepolicies)
+
+## Sample policies<a name="services-redshift-samplepolicies"></a>
+
+The GitHub repository for this guide provides [sample IAM policies](https://github.com/awsdocs/amazon-lookoutmetrics-developer-guide/blob/main/sample-policies) that you can use as reference for developing service roles\. You can use a single role that grants permission for both importing data and sending alerts by combining the applicable policies\.
+
+**Example [datasource\-redshift\.json](https://github.com/awsdocs/amazon-lookoutmetrics-developer-guide/blob/main/sample-policies/datasource-redshift.json) – Monitor and access an Amazon Redshift cluster**  
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "redshift:DescribeClusters",
+                "redshift:DescribeClusterSubnetGroups"
+            ],
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "secretsmanager:GetSecretValue"
+            ],
+            "Resource": [
+                "arn:aws:secretsmanager:${Region}:${Account}:secret:${SecretId}"
+            ],
+            "Effect": "Allow",
+            "Condition": {
+                "ForAllValues:StringEquals": {
+                    "secretsmanager:VersionStage": "AWSCURRENT"
+                }
+            }
+        },
+        ...
+```
+
+The second sample policy shows how to grant the detector permission to connect to a cluster across accounts\. The account with the cluster \(Account B\) must be in the same organization and share its subnet with the account that contains the detector \(`AccountA`\)\.
+
+**Example [datasource\-redshift\-xaccount\.json](https://github.com/awsdocs/amazon-lookoutmetrics-developer-guide/blob/main/sample-policies/datasource-redshift-xaccount.json) – Cross\-account access**  
+
+```
+        ...
+        {
+            "Action": [
+                "ec2:CreateNetworkInterface"
+            ],
+            "Resource": [
+                "arn:aws:ec2:${Region}:${AccountA}:network-interface/*",
+                "arn:aws:ec2:${Region}:${AccountA}:security-group/*",
+                "arn:aws:ec2:${Region}:${AccountB}:subnet/${SubnetId}"
+            ],
+            "Effect": "Allow"
+        },
+        ...
+```
+
+For more information, see [Working with shared VPCs](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-sharing.html) in the *Amazon VPC User Guide*\.
