@@ -22,10 +22,10 @@ When you configure a dataset or alert in the Lookout for Metrics console, the co
 The trust policy allows Lookout for Metrics to assume the role\.
 
 **Topics**
-+ [Sample policies](#permissions-service-samplepolicies)
++ [Sample IAM policies](#permissions-service-samplepolicies)
 + [Sample AWS CloudFormation templates](#permissions-service-sampletemplates)
 
-## Sample policies<a name="permissions-service-samplepolicies"></a>
+## Sample IAM policies<a name="permissions-service-samplepolicies"></a>
 
 The GitHub repository for this guide provides sample IAM policies that you can use as reference for developing service roles\. You can use a single role that grants permission for both importing data and sending alerts by combining the applicable policies\.
 

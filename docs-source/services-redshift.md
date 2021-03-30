@@ -48,9 +48,9 @@ When you add an Amazon Redshift dataset to your detector, the Lookout for Metric
 For more information about Amazon Redshift, see [Getting started with Amazon Redshift](https://docs.aws.amazon.com/redshift/latest/gsg/getting-started.html) in the Amazon Redshift Getting Started\.
 
 **Topics**
-+ [Sample policies](#services-redshift-samplepolicies)
++ [Sample IAM policies](#services-redshift-samplepolicies)
 
-## Sample policies<a name="services-redshift-samplepolicies"></a>
+## Sample IAM policies<a name="services-redshift-samplepolicies"></a>
 
 The GitHub repository for this guide provides [sample IAM policies](https://github.com/awsdocs/amazon-lookoutmetrics-developer-guide/blob/main/sample-policies) that you can use as reference for developing service roles\. You can use a single role that grants permission for both importing data and sending alerts by combining the applicable policies\.
 

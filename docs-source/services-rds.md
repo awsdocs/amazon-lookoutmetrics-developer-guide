@@ -64,10 +64,10 @@ When you add an Amazon RDS dataset to your detector, the Lookout for Metrics con
 For more information about Amazon RDS, see [Getting started with Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.html) in the Amazon RDS User Guide\.
 
 **Topics**
-+ [Sample policies](#services-rds-samplepolicies)
++ [Sample IAM policies](#services-rds-samplepolicies)
 + [Sample AWS CloudFormation templates](#services-rds-sampletemplates)
 
-## Sample policies<a name="services-rds-samplepolicies"></a>
+## Sample IAM policies<a name="services-rds-samplepolicies"></a>
 
 The GitHub repository for this guide provides [sample IAM policies](https://github.com/awsdocs/amazon-lookoutmetrics-developer-guide/blob/main/sample-policies) that you can use as reference for developing service roles\. You can use a single role that grants permission for both importing data and sending alerts by combining the applicable policies\.
 

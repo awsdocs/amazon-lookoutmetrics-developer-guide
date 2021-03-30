@@ -30,6 +30,10 @@ After giving your detector a datasource, you choose fields to be the dataset's m
 
 For example, you can choose a field named `availability` for a measure\. If you don't choose a dimension, the detector monitors availability across all records\. If you choose a field named `country` for a dimension, then the detector monitors availability in each country as a separate metric: *availability in Canada*, *availability in Italy*, and so on\.
 
+**Important**  
+Pricing in Lookout for Metrics is based on the number of metrics that detectors monitor\. Each dimension increases the number of metrics by the number of unique values in the dimension\. For example, the number of countries that appear in a `country` dimension\. Choose dimensions that have a limited number of known values\.  
+For more information, see [Pricing](gettingstarted-pricing.md)\.
+
 For more information, see [Setting up a detector](detectors-setup.md)\.
 
 ## Alert<a name="gettingstarted-concepts-alert"></a>

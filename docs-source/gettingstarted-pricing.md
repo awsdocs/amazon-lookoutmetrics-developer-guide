@@ -18,7 +18,7 @@ When a detector monitors data, it generates charges for each metric that appears
 
 For example, if you choose 2 fields for measures, and 3 dimensions that each have 5 possible values, the maximum number of metrics that can appear in an interval is 30\. If not all dimension values appear in every interval, the number of metrics can vary between 6 and 30 for each interval\.
 
-**Note**  
+**Important**  
 The cost of using a detector increases linearly with the number of different values that appear in each interval for the dimensions that you configure for your dataset\. For example, if you use a dimension named `continent` that has 7 possible values, the cost of that dimension is limited by the number of measures times 7\. If you use a dimension named `id` that stores a GUID, the cost of the dimension increases scales with the number of GUIDs that appear in the data\.
 
 ## Charges for other services<a name="gettingstarted-pricing-otherservices"></a>
