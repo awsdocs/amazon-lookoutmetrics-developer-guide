@@ -82,6 +82,7 @@ To get the file out of S3, use the `aws s3 cp` command with the URI that the fun
 
 To run the same code locally with the `unittest` library, run `0-run-tests.sh`
 
+    data-processor$ pipenv shell
     (data-processor) data-processor$ ./0-run-tests.sh
     ## ENVIRONMENT VARIABLES
     {"EDITOR": "vim", "HOME": "/home/...\n"}
