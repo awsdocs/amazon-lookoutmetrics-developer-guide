@@ -25,7 +25,7 @@ Resources:
       # Function's execution role
       Policies:
         - AWSLambdaBasicExecutionRole
-        - AWSLambdaReadOnlyAccess
+        - AWSLambda_ReadOnlyAccess
         - AWSCloudTrailReadOnlyAccess
         - AWSXrayWriteOnlyAccess
         - S3CrudPolicy:

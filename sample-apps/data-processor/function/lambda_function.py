@@ -28,6 +28,13 @@ ct_throttle_sleep = 2
 fields = ['EventTime','EventId','EventSource','EventName','ReadOnly','AccessKeyId','Username']
 
 def lambda_handler(event, context):
+    """
+    Process AWS Lambda events to generate reports.
+
+    :param event: The Lambda invocation payload, a JSON document with parameters.
+    :param context: Details about the Lambda runtime environment
+    :return: returns the location of a report in Amazon S3
+    """
     logger.info('## ENVIRONMENT VARIABLES')
     logger.info(jsonpickle.encode(dict(**os.environ)))
     logger.info('## EVENT')
@@ -71,7 +78,7 @@ def process_events(end_time, service):
     # format timeseries dataframe
     df = pd.DataFrame(records)
     if len(df) == 0:
-        return '404 no records'
+        return '404 no events found for service {}'.format(service)
     df['EventTime'] = pd.to_datetime(df['EventTime'], utc=True)
     timeseries = df.set_index('EventTime')
     timeseries.sort_index(inplace=True)

@@ -16,6 +16,7 @@ Use the following instructions to deploy the sample application.
 - [Python 3.7](https://www.python.org/downloads/)
 - The Bash shell. For Linux and macOS, this is included by default. In Windows 10, you can install the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to get a Windows-integrated version of Ubuntu and Bash.
 - [The AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html) v1.17 or newer.
+- Data in AWS CloudTrail. If you don't currently use CloudTrail, [create a trail in the CloudTrail console](https://console.aws.amazon.com/cloudtrail/home) to start logging API activity in your account.
 
 If you use the AWS CLI v2, add the following to your [configuration file](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) (`~/.aws/config`):
 
@@ -69,7 +70,7 @@ To invoke the function, run `4-invoke.sh`.
     }
     "s3://lookoutmetrics-dataset-a33dxmplff890241/timeseries/20210317/2300/kms-timeseries-2021-03-17 23:03:48.csv"
 
-The test event generates a one-hour interval's worth of data for the most recent full hour and stores it in the application's bucket.
+The test event generates a one-hour interval's worth of data for the most recent full hour and stores it in the application's bucket. If the function returns the error *404 no events found for service kms*, you don't have any AWS Key Management Service (AWS KMS) activity in the current Region. The application generates decryption activity in AWS KMS, so you can wait until the top of the next hour, or try configuring a different service in the event file (`event.json`).
 
 To get the file out of S3, use the `aws s3 cp` command with the URI that the function returns.
 
@@ -80,7 +81,7 @@ To get the file out of S3, use the `aws s3 cp` command with the URI that the fun
     2021-03-17 22:00:08+00:00,03b5fc97-xmpl-414a-93eb-0fd1190e18c4,kms.amazonaws.com,Decrypt,true,none,none,1,2021-03-17 22:00:08
     2021-03-17 22:00:08+00:00,32b10683-xmpl-4398-89ef-d65cfecd6f68,kms.amazonaws.com,Decrypt,true,none,none,1,2021-03-17 22:00:08
 
-To run the same code locally with the `unittest` library, run `0-run-tests.sh`
+To run the same code locally with the `unittest` library, run `0-run-tests.sh`. `pipenv shell` activates the project's virtual environment to ensure that the required Python libraries are available.
 
     data-processor$ pipenv shell
     (data-processor) data-processor$ ./0-run-tests.sh
