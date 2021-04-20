@@ -26,7 +26,7 @@ Datasets have a datasource, a service role, and a mapping that tells the detecto
 
 ## Metrics<a name="gettingstarted-concepts-metrics"></a>
 
-After giving your detector a datasource, you choose fields to be the dataset's measures\. *Measures* are the primary fields that the detector monitors\. You can also configure up to five additional fields as *dimensions*\. Dimensions are secondary fields that create subgroups of measures based on their value\. Each combination of metric and dimension is called a *metric*\.
+After giving your detector a datasource, you choose fields to be the dataset's measures\. *Measures* are the primary fields that the detector monitors\. You can also configure up to five additional fields as *dimensions*\. Dimensions are secondary fields that create subgroups of measures based on their value\. Each combination of measure and dimension is called a *metric*\.
 
 For example, you can choose a field named `availability` for a measure\. If you don't choose a dimension, the detector monitors availability across all records\. If you choose a field named `country` for a dimension, then the detector monitors availability in each country as a separate metric: *availability in Canada*, *availability in Italy*, and so on\.
 

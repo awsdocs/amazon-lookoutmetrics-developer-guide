@@ -40,7 +40,7 @@ Quotas set by other services can impact operation\. For information on quotas fo
 | 10\-minute interval | 24000 records | 
 | 1\-hour interval | 150000 records | 
 | 1\-day interval | 300000 records | 
-| Maximum number of metrics Lookout for Metrics can process per interval | 
+| Maximum number of metrics Lookout for Metrics can process per detector | 
 | --- |
 | 5\-minute interval | 5000 metrics | 
 | 10\-minute interval | 10000 metrics | 
