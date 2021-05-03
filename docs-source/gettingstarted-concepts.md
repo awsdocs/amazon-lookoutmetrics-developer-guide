@@ -18,7 +18,7 @@ Lookout for Metrics integrates with other AWS services to provide additional dat
 
 ## Dataset<a name="gettingstarted-concepts-dataset"></a>
 
-A *dataset* is a detector's copy of your data\. At the end of each interval, the detector copies metrics and dimensions from a datasource into its dataset for analysis\. Each row or document in a dataset is called a *record*\. Each labeled value or key\-value pair in a record is a *field*\. Each record much have a timestamp field and at least one field that the detector monitors, called a *measure*\.
+A *dataset* is a detector's copy of your data\. At the end of each interval, the detector copies metrics and dimensions from a datasource into its dataset for analysis\. Each row or document in a dataset is called a *record*\. Each labeled value or key\-value pair in a record is a *field*\. Each record must have a timestamp field and at least one field that the detector monitors, called a *measure*\.
 
 A dataset can have continuous data, historical data or both\. A detector looks for anomalies in continuous data, and uses historical data for learning\. If its dataset has only historical data, a detector runs in *backtest mode*\. In backtest mode, a detector uses most of the data for learning and attempts to find anomalies in a smaller subset of recent data\.
 
