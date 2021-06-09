@@ -2,6 +2,12 @@
 
 You can use Amazon CloudWatch metrics as a datasource for an Amazon Lookout for Metrics detector\. Most AWS services send metrics to CloudWatch automatically when you use them\. You can create a dataset from these metrics, or from metrics that you send to CloudWatch\. You can send metrics to CloudWatch from your application code, or from software such as [StatsD](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-custom-metrics-statsd.html) or [collectd](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-custom-metrics-collectd.html)\.
 
+**Topics**
++ [Adding a CloudWatch datasource](#services-cloudwatch-datasource)
++ [Training a detector with a CloudWatch datasource](#services-cloudwatch-training)
+
+## Adding a CloudWatch datasource<a name="services-cloudwatch-datasource"></a>
+
 In CloudWatch, a metric can have a name and value, and optionally can also have a dimension name and dimension value\. For example, Amazon EC2 has a metric named `CPUUtilization` with a value that is a number between 0 and 100, and a dimension named `InstanceId` that has the unique ID of an instance\.
 
 **To create a CloudWatch dataset**
@@ -22,6 +28,18 @@ For example, in AWS Lambda you can monitor concurrency by function, by resource 
 
 The detector reads new data from CloudWatch periodically, by reading the values of metrics that occur in each interval\. It aggregates the values of each metric for the interval and looks for anomalies\. It records anomalies and sends [anomaly alerts](detectors-alerts.md), if configured\.
 
-When you activate the detector, it uses data from several intervals to learn, before attempting to find anomalies\. For a five minute interval, the training process takes approximately one day\. Training time varies [depending on the detector's interval](gettingstarted-quotas.md#gettingstarted-quotas-coldstart)\.
+When you activate the detector, it uses data from several intervals to learn, before attempting to find anomalies\. For a five minute interval, the training process takes approximately one day\. Training time varies [depending on the detector's interval](quotas.md#gettingstarted-quotas-coldstart)\.
 
 When you add a CloudWatch dataset to your detector, the Lookout for Metrics console creates a [service role](permissions-service.md) with permission to read metrics\.
+
+## Training a detector with a CloudWatch datasource<a name="services-cloudwatch-training"></a>
+
+When using a CloudWatch datasource, the following number of days are used to train a detector:
++ **5 minute interval** \- 17 days
++ **10 minute interval** \- 34 days
++ **1 hour interval** \- 166 days
++ **1 day interval** \- 455 days
+
+For example, if a datasource has a 5 minute interval, data from the previous 17 days will be used to train a detector\. If the datasource contains fewer than 17 days of data, a detector will be trained using the available data\.
+
+The datasource must meet the [minumum data requirements](quotas.md#gettingstarted-quotas-backtest) in order to train a detector\.

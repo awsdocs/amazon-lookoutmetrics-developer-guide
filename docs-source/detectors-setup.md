@@ -44,7 +44,7 @@ The new detector does not yet have a dataset to analyze\. To start analyzing dat
 
 1. Configure the datasource and then choose **Next**\. Options vary depending on the datasource that you choose\. Common settings include the following\.
    + **Interval** – The amount of time between analysis attempts\. Use the same setting as the detector's interval\.
-   + **Offset** – The minimum amount of time that the detector should wait before accessing data, after the end of each interval\.
+   + **Offset** – The minimum amount of seconds that the detector waits before accessing data, after the end of each interval\. Offset is only supported for Amazon S3 and Amazon Redshift datasources\.
    + **Permissions** – A [service role](permissions-service.md) that gives Lookout for Metrics permission to access either the datasource or a secret that contains credentials for the datasource\.
 
 1. Configure the metrics that the detector analyzes\.
@@ -56,7 +56,7 @@ The new detector does not yet have a dataset to analyze\. To start analyzing dat
 
 1. Choose **Save and activate**\.
 
-When you activate a detector, it starts analyzing data and learns to identify anomalies by identifying patterns in metrics\. Learning time [varies depending on the detector's interval](gettingstarted-quotas.md#gettingstarted-quotas-coldstart) and whether you provide historical data\. With a 5 minute interval and no historical data, learning time is up to 25 hours\. During this time, the detector's status is **Initializing**\.
+When you activate a detector, it starts analyzing data and learns to identify anomalies by identifying patterns in metrics\. Learning time [varies depending on the detector's interval](quotas.md#gettingstarted-quotas-coldstart) and whether you provide historical data\. With a 5 minute interval and no historical data, learning time is up to 25 hours\. During this time, the detector's status is **Initializing**\.
 
 **Note**  
 To communicate with other services, Lookout for Metrics needs permissions from an AWS Identity and Access Management \(IAM\) service role\. When you use the console to configure a dataset, you can create a service role or choose one you already have\. If you don't have permission to create roles, ask an administrator to create a service role for Lookout for Metrics\.  

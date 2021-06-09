@@ -8,6 +8,7 @@ AWS Identity and Access Management \(IAM\) is an AWS service that helps an admin
 + [Managing access using policies](#security_iam_access-manage)
 + [How Amazon Lookout for Metrics works with IAM](security_iam_service-with-iam.md)
 + [Amazon Lookout for Metrics identity\-based policy examples](security_iam_id-based-policy-examples.md)
++ [AWS managed policies for Amazon Lookout for Metrics](security-iam-awsmanpol.md)
 + [Troubleshooting Amazon Lookout for Metrics identity and access](security_iam_troubleshoot.md)
 
 ## Audience<a name="security_iam_audience"></a>

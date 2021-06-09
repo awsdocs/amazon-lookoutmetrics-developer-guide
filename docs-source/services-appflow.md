@@ -57,7 +57,7 @@ With Amazon AppFlow, you choose fields from the flow's data to be measures and d
 
 The detector reads new data from Amazon AppFlow periodically, by accessing the flow\. If it detects any anomalies in the metrics for the interval, it records an anomaly and sends anomaly alerts, if configured\.
 
-When you activate the detector, it uses data from several intervals to learn, before attempting to find anomalies\. For a five minute interval, the training process takes approximately one day\. Training time varies [depending on the detector's interval](gettingstarted-quotas.md#gettingstarted-quotas-coldstart)\.
+When you activate the detector, it uses data from several intervals to learn, before attempting to find anomalies\. For a five minute interval, the training process takes approximately one day\. Training time varies [depending on the detector's interval](quotas.md#gettingstarted-quotas-coldstart)\.
 
 **Note**  
 When you add an Amazon AppFlow dataset to your detector, the Lookout for Metrics console creates a [service role](permissions-service.md) with permission to read from the flow\.

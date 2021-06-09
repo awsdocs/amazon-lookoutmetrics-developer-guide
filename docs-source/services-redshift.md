@@ -40,7 +40,7 @@ To configure metrics in Lookout for Metrics, you choose columns to be measures a
 
 The detector reads new data from Amazon Redshift periodically, by querying records with timestamps in the most recently completed interval\. If it detects any anomalies in the metrics for the interval, it records an anomaly and sends [anomaly alerts](detectors-alerts.md), if configured\.
 
-When you activate the detector, it uses data from several intervals to learn, before attempting to find anomalies\. For a five minute interval, the training process takes approximately one day\. Training time varies [depending on the detector's interval](gettingstarted-quotas.md#gettingstarted-quotas-coldstart)\.
+When you activate the detector, it uses data from several intervals to learn, before attempting to find anomalies\. For a five minute interval, the training process takes approximately one day\. Training time varies [depending on the detector's interval](quotas.md#gettingstarted-quotas-coldstart)\.
 
 **Note**  
 When you add an Amazon Redshift dataset to your detector, the Lookout for Metrics console creates a [service role](permissions-service.md) with permission to use the database secret and monitor Amazon Redshift resources\. Lookout for Metrics also creates up to two [elastic network interfaces](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_ElasticNetworkInterfaces.html), which allow it to connect to your VPC to access your database\. When you delete the detector, Lookout for Metrics deletes the network interfaces\.
@@ -48,9 +48,107 @@ When you add an Amazon Redshift dataset to your detector, the Lookout for Metric
 For more information about Amazon Redshift, see [Getting started with Amazon Redshift](https://docs.aws.amazon.com/redshift/latest/gsg/getting-started.html) in the Amazon Redshift Getting Started\.
 
 **Topics**
-+ [Sample IAM policies](#services-redshift-samplepolicies)
++ [IAM policies for Amazon Redshift](#services-redshift-iampolicies)
 
-## Sample IAM policies<a name="services-redshift-samplepolicies"></a>
+## IAM policies for Amazon Redshift<a name="services-redshift-iampolicies"></a>
+
+IAM is an AWS service that helps an administrator securely control access to AWS resources\. IAM administrators control who can be authenticated and authorized to use Lookout for Metrics resources\.
+
+To set up an IAM policy for an Amazon Redshift datasource, use the following template\.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "redshift:DescribeClusters",
+        "redshift:DescribeClusterSubnetGroups"
+      ],
+      "Resource": "*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "secretsmanager:GetSecretValue"
+      ],
+      "Resource": [
+        "arn:aws:secretsmanager:{{region}}:{{account_id}}:secret:[[secret_name]]"
+      ],
+      "Effect": "Allow",
+      "Condition": {
+        "ForAllValues:StringEquals": {
+          "secretsmanager:VersionStage": "AWSCURRENT"
+        }
+      }
+    },
+    {
+      "Action": [
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeSubnets"
+      ],
+      "Resource": "*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "ec2:CreateNetworkInterface"
+      ],
+      "Resource": [
+                "arn:aws:ec2:{{region}}:{{account_id}}:network-interface/*",
+                "arn:aws:ec2:{{region}}:{{account_id}}:security-group/*",
+                "arn:aws:ec2:{{region}}:{{account_id}}:subnet/[[subnet_id]]"
+],
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "ec2:CreateNetworkInterfacePermission",
+        "ec2:DeleteNetworkInterface"
+      ],
+      "Resource": "arn:aws:ec2:{{region}}:{{account_id}}:network-interface/*",
+      "Effect": "Allow",
+      "Condition": {
+        "StringEquals": {
+          "aws:ResourceTag/AmazonLookoutMetricsManaged": "True"
+        }
+      }
+    },
+    {
+      "Action": [
+        "ec2:CreateTags"
+      ],
+      "Resource": "arn:aws:ec2:{{region}}:{{account_id}}:network-interface/*",
+      "Effect": "Allow",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestTag/AmazonLookoutMetricsManaged": "True",
+          "ec2:CreateAction": "CreateNetworkInterface"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:Decrypt"
+      ],
+      "Resource": [
+        "*"
+      ],
+      "Condition": {
+        "ForAllValues:StringEquals": {
+          "kms:ViaService": "secret.{{region}}.amazonaws.com",
+          "kms:CallerAccount": [
+            "{{account_id}}"
+          ]
+        }
+      }
+    }
+  ]
+}
+```
+
+### Sample IAM policies<a name="services-redshift-samplepolicies"></a>
 
 The GitHub repository for this guide provides [sample IAM policies](https://github.com/awsdocs/amazon-lookoutmetrics-developer-guide/blob/main/sample-policies) that you can use as reference for developing service roles\. You can use a single role that grants permission for both importing data and sending alerts by combining the applicable policies\.
 

@@ -68,7 +68,7 @@ To import data from the bucket and look for anomalies, activate the detector\.
 
 1. Choose **Activate detector**\. 
 
-When you activate the detector, it uses data from several intervals to learn, before attempting to find anomalies\. If no historical data is available, the training process takes approximately one day for a five\-minute interval\. Training time varies [depending on the detector's interval](gettingstarted-quotas.md#gettingstarted-quotas-coldstart)\.
+When you activate the detector, it uses data from several intervals to learn, before attempting to find anomalies\. If no historical data is available, the training process takes approximately one day for a five\-minute interval\. Training time varies [depending on the detector's interval](quotas.md#gettingstarted-quotas-coldstart)\.
 
 ## \(Optional\) Add an alert<a name="gettingstarted-detector-alert"></a>
 

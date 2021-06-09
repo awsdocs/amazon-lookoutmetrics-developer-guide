@@ -22,7 +22,7 @@ The detector imports data at the end of each interval\. You configure an **offse
 
 The detector reads new data from Amazon S3 periodically, by getting objects from the folder for the most recent completed interval\. If it detects any anomalies in the metrics for the interval, it records an anomaly and sends [anomaly alerts](detectors-alerts.md), if configured\.
 
-When you activate the detector, it uses data from several intervals to learn, before attempting to find anomalies\. If no historical data is available, the training process takes approximately one day for a five\-minute interval\. Training time varies [depending on the detector's interval](gettingstarted-quotas.md#gettingstarted-quotas-coldstart)\.
+When you activate the detector, it uses data from several intervals to learn, before attempting to find anomalies\. If no historical data is available, the training process takes approximately one day for a five\-minute interval\. Training time varies [depending on the detector's interval](quotas.md#gettingstarted-quotas-coldstart)\.
 
 For more information about Amazon S3, see [Getting started with Amazon Simple Storage Service](https://docs.aws.amazon.com/AmazonS3/latest/gsg/GetStartedWithS3.html) in the Amazon Simple Storage Service Getting Started Guide\.
 

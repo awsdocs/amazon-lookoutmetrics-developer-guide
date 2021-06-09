@@ -2,7 +2,7 @@
 
 An *anomaly* is a data point that the detector doesn't expect based on its understanding of your data\. An anomaly isn't necessarily good or bad, it's just unexpected\. A detector learns over time to more accurately identify anomalies based on patterns that it finds in your data\.
 
-Lookout for Metrics organizes anomalies that affect the same [measure](gettingstarted-concepts.md#gettingstarted-concepts-metrics) during the same interval groups and displays them as a single event\. To get details about anomalies, view them in the Amazon Lookout for Metrics console\.
+Lookout for Metrics organizes anomalies that affect the same [measure](concepts.md#gettingstarted-concepts-metrics) during the same interval groups and displays them as a single event\. To get details about anomalies, view them in the Amazon Lookout for Metrics console\.
 
 **To view anomalies**
 

@@ -38,3 +38,13 @@ Lookout for Metrics integrates with other services to provide additional datasou
   + **Amplitude**
 
 To get started with Lookout for Metrics and learn more about the service, continue to [Getting started with Lookout for Metrics](lookoutmetrics-gettingstarted.md)\. 
+
+## Are You a First\-Time User of Lookout for Metrics?<a name="lookoutmetrics-firsttimeuser"></a>
+
+If you are a first\-time user of Lookout for Metrics, we recommend that you start with the following pages:
+
+1. [Getting started](lookoutmetrics-gettingstarted.md) –Get started with Lookout for Metrics\.
+
+1. [Key terms and concepts](concepts.md) – Learn about the key terms and concepts of Lookout for Metrics\.
+
+1. [API reference](https://docs.aws.amazon.com/lookoutmetrics/latest/api/Welcome.html) – Familiarize yourself with the Lookout for Metrics API actions and data types\.

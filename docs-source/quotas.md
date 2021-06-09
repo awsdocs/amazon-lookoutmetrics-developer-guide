@@ -1,4 +1,4 @@
-# Lookout for Metrics quotas<a name="gettingstarted-quotas"></a>
+# Lookout for Metrics quotas<a name="quotas"></a>
 
 Amazon Lookout for Metrics sets quotas for the amount of data that a detector can use to learn and detect anomalies\. There are also quotas for data import intervals, records processing, and Amazon Lookout for Metrics API requests\. Additionally, there are data requirements for data retention for re\-training, coldstart anomaly detection, backtesting, time series, and record field key value pairs\.
 
@@ -24,10 +24,6 @@ Quotas set by other services can impact operation\. For information on quotas fo
 | --- |
 | Maximum number of detectors | 10 | 
 | Maximum number of alerts for a detector | 10 | 
-| Quotas for datasets | 
-| --- |
-| Maximum number of dimensions for a dataset | 5 dimensions | 
-| Maximum number of measures for a dataset | 5 measures | 
 | Maximum number of files you can upload per interval | 
 | --- |
 | 5\-minute interval | 5 files | 
@@ -39,20 +35,14 @@ Quotas set by other services can impact operation\. For information on quotas fo
 | 5\-minute interval | 15000 records | 
 | 10\-minute interval | 24000 records | 
 | 1\-hour interval | 150000 records | 
-| 1\-day interval | 300000 records | 
-| Maximum number of metrics Lookout for Metrics can process per detector | 
-| --- |
-| 5\-minute interval | 5000 metrics | 
-| 10\-minute interval | 10000 metrics | 
-| 1\-hour interval | 50000 metrics | 
-| 1\-day interval | 50000 metrics | 
+| 1\-day interval | 150000 records | 
 
 The following adjustable Lookout for Metrics quotas apply per AWS Region and are for Lookout for Metrics API requests\.
 
 
 | Resource | Default Quota | 
 | --- | --- | 
-| Maximum rate of total API requests |  20/second  | 
+| Maximum rate of total API requests |  10/second  | 
 | Maximum rate of CreateAnomalyDetector API requests |  1/second  | 
 | Maximum rate of UpdateAnomalyDetector API requests |  1/second  | 
 | Maximum rate of DeleteAnomalyDetector API requests |  1/second  | 
@@ -79,8 +69,6 @@ The following adjustable Lookout for Metrics quotas apply per AWS Region and are
 | Maximum rate of TagResource API requests |  1/second  | 
 | Maximum rate of UntagResource API requests |  1/second  | 
 | Maximum rate of ListTagsForResource API requests |  1/second  | 
-| Maximum rate of RunAnomalyDetection API requests per anomaly detector |  1/second  | 
-| Maximum rate of TrainAnomalyDetector API requests per anomaly detector |  1/second  | 
 
 ## Fixed quotas<a name="gettingstarted-quotas-fixed"></a>
 
@@ -90,13 +78,21 @@ The following quotas cannot be changed\.
 | Resource | Quota | 
 | --- |--- |
 | Maximum number of datasets for a detector | 1 dataset | 
-| Maximum number of data sources for a dataset | 1 datasource | 
-| Maximum length of a field value in a data point | 40 bytes | 
+| Quotas for datasets | 
+| --- |
+| Maximum number of dimensions for a dataset | 5 dimensions | 
+| Maximum number of measures for a dataset | 5 measures | 
 | Quotas for historical data | 
 | --- |
 | Maximum intervals \(continuous mode\) | 2500 | 
 | Maximum intervals \(backtest mode\) | 3000 | 
-| Maximum number of files | 3000 | 
+| Maximum number of files in historical data | 3000 | 
+| Maximum number of metrics Lookout for Metrics can process per detector | 
+| --- |
+| 5\-minute interval | 5000 metrics | 
+| 10\-minute interval | 10000 metrics | 
+| 1\-hour interval | 50000 metrics | 
+| 1\-day interval | 50000 metrics | 
 
 ## Data retention time periods for re\-training<a name="gettingstarted-quotas-retention"></a>
 
@@ -144,6 +140,6 @@ The amount of data that the detector can process for an interval is limited\. Yo
 
  Character limits for record field key value pairs are as follows: 
 + Dimensions key – 63 characters
-+ Dimension value – 50 characters
++ Dimension value – 40 characters
 + Timestamp key – 63 characters
 + Measure value – 10^15 with precision of 4 after decimal point
