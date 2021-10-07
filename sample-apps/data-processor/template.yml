@@ -34,7 +34,7 @@ Resources:
         hourly:
           Type: Schedule
           Properties:
-            Schedule: cron(0 * * * ? *)
+            Schedule: cron(0 12 * * ? *)
             Input: !Sub '{"service": "${serviceName}"}'
       Tracing: Active
       Layers:
