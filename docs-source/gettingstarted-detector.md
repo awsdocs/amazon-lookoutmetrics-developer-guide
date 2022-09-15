@@ -16,7 +16,7 @@ Use the Lookout for Metrics console to create the detector that monitors your da
 
 **To create a detector**
 
-1. Open the [Lookout for Metrics console](https://console.aws.amazon.com//lookoutmetrics/home)\.
+1. Open the [Lookout for Metrics console](https://console.aws.amazon.com/lookoutmetrics/home)\.
 
 1. Choose **Create detector**\.
 
