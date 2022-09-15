@@ -34,7 +34,7 @@ Add a dataset by specifying the location of your data in Amazon S3 and the names
 
 **To add a dataset**
 
-1. Open the [Lookout for Metrics console Detectors](https://console.aws.amazon.com//lookoutmetrics/home#detectors) page\.
+1. Open the [Lookout for Metrics console Detectors](https://console.aws.amazon.com/lookoutmetrics/home#detectors) page\.
 
 1. Choose **sample\-detector**\.
 
@@ -62,7 +62,7 @@ To import data from the bucket and look for anomalies, activate the detector\.
 
 **To activate the detector**
 
-1. Open the [Lookout for Metrics console Detectors](https://console.aws.amazon.com//lookoutmetrics/home#detectors) page\.
+1. Open the [Lookout for Metrics console Detectors](https://console.aws.amazon.com/lookoutmetrics/home#detectors) page\.
 
 1. Choose the detector\.
 
@@ -76,7 +76,7 @@ In this section, you will add an alert to the detector\. You will need to create
 
 **To add an alert**
 
-1. Open the [Lookout for Metrics console Detectors](https://console.aws.amazon.com//lookoutmetrics/home#detectors) page\.
+1. Open the [Lookout for Metrics console Detectors](https://console.aws.amazon.com/lookoutmetrics/home#detectors) page\.
 
 1. Choose a detector\.
 
@@ -100,7 +100,7 @@ In this section, you will review the anomalies found by the detector\.
 
 **To review anomalies**
 
-1. Open the [Lookout for Metrics console Detectors](https://console.aws.amazon.com//lookoutmetrics/home#detectors) page\.
+1. Open the [Lookout for Metrics console Detectors](https://console.aws.amazon.com/lookoutmetrics/home#detectors) page\.
 
 1. Choose **sample\-detector**\.
 
@@ -116,7 +116,7 @@ If you are done using the detector, delete it\.
 
 **To delete the detector**
 
-1. Open the [Lookout for Metrics console Detectors](https://console.aws.amazon.com//lookoutmetrics/home#detectors) page\.
+1. Open the [Lookout for Metrics console Detectors](https://console.aws.amazon.com/lookoutmetrics/home#detectors) page\.
 
 1. Choose the detector, **sample\-detector**\.
 
